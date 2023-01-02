@@ -83,11 +83,8 @@ class HomeView extends GetView<HomeController> {
               ),
               label: "Orders",
             ),
-            BottomNavigationBarItem(
-              icon: Badge(
-                showBadge: false,
-                child: const Icon(FontAwesomeIcons.productHunt),
-              ),
+            const BottomNavigationBarItem(
+              icon: CircleAvatar(),
               label: "Favourites",
             ),
           ],
