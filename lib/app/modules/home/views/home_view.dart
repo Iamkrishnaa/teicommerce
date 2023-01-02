@@ -47,7 +47,9 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
-      body: Column(),
+      body: Obx(() => homeController.getCurrentPage(
+            homeController.currentBottomNavigationIndex.value,
+          )),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
