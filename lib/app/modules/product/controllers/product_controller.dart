@@ -1,23 +1,23 @@
 import 'package:get/get.dart';
+import 'package:teicommerce/app/models/products/category.dart';
 
 class ProductController extends GetxController {
-  //TODO: Implement ProductController
+  var categories = <Category>[].obs;
+  // var selectedCategoryIndex = 0.obs;
+  late Category selectedCategory;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    categories.value = List.generate(10, (index) {
+      return Category(id: index + 1, title: "Category ${index + 1}");
+    });
+    selectedCategory = categories[0];
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // changeCategory(int index) {
+  //   selectedCategoryIndex.value = index;
+  //   update();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

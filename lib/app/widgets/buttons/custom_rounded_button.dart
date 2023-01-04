@@ -8,7 +8,7 @@ class CustomRoundedButton extends StatelessWidget {
     this.onTap,
     this.shouldFill = true,
     this.radius = 100,
-    this.width = double.infinity,
+    this.width,
     this.height,
   }) : super(key: key);
   final Widget child;
@@ -16,7 +16,7 @@ class CustomRoundedButton extends StatelessWidget {
   final bool shouldFill;
   final Function()? onTap;
   final double radius;
-  final double width;
+  final double? width;
   final double? height;
 
   @override
