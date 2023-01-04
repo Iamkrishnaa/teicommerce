@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teicommerce/app/consts/app_colors.dart';
 import 'package:teicommerce/app/models/products/category.dart';
+import 'package:teicommerce/app/modules/product/views/product_detail_view.dart';
 import 'package:teicommerce/app/widgets/buttons/custom_rounded_button.dart';
 
 import '../controllers/product_controller.dart';
@@ -30,6 +31,7 @@ class ProductView extends GetView<ProductController> {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.blueGrey.shade200,
                   image: DecorationImage(
                     image: const NetworkImage(
                       "https://images.unsplash.com/photo-1617469167379-2e33a480dd6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
@@ -210,72 +212,84 @@ class ProductView extends GetView<ProductController> {
                 childAspectRatio: 0.9,
                 children: List.generate(
                   20,
-                  (index) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 16.0,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      image: DecorationImage(
-                        image: const NetworkImage(
-                          "https://images.unsplash.com/photo-1617469167379-2e33a480dd6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-                        ),
-                        fit: BoxFit.cover,
-                        //make background darker
-                        colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.2),
-                          BlendMode.darken,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () => ProductDetailView(),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 16.0,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        color: Colors.blueGrey.shade200,
+                        image: DecorationImage(
+                          image: const NetworkImage(
+                            "https://images.unsplash.com/photo-1617469167379-2e33a480dd6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+                          ),
+                          fit: BoxFit.cover,
+                          //make background darker
+                          colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.2),
+                            BlendMode.darken,
+                          ),
                         ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomRoundedButton(
-                          width: 50,
-                          color: AppColors.colorPaletteA,
-                          radius: 10.0,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 5.0,
-                              ),
-                              child: Text(
-                                "New",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    ?.copyWith(
-                                      color: Colors.white,
-                                    ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomRoundedButton(
+                            width: 50,
+                            color: AppColors.colorPaletteA,
+                            radius: 10.0,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                child: Text(
+                                  "New",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 12.0,
-                        ),
-                        Text(
-                          "\$ 198.00",
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        ),
-                        Text(
-                          "Romantic Book askdf askdf",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 12.0,
+                          ),
+                          Text(
+                            "\$ 198.00",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                          ),
+                          Text(
+                            "Romantic Book askdf askdf",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
