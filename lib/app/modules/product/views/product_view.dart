@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teicommerce/app/consts/app_colors.dart';
 import 'package:teicommerce/app/models/products/category.dart';
+import 'package:teicommerce/app/modules/product/bindings/product_binding.dart';
 import 'package:teicommerce/app/modules/product/views/product_detail_view.dart';
 import 'package:teicommerce/app/widgets/buttons/custom_rounded_button.dart';
 
@@ -216,6 +217,7 @@ class ProductView extends GetView<ProductController> {
                     onTap: () {
                       Get.to(
                         () => ProductDetailView(),
+                        binding: ProductBinding(),
                       );
                     },
                     child: Container(
