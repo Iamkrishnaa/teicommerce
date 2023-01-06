@@ -88,33 +88,29 @@ class PaymentConfirmView extends GetView {
               horizontal: 12.0,
               vertical: 24.0,
             ),
-            child: Column(
-              children: [
-                CustomRoundedButton(
-                  radius: 8.0,
-                  width: double.infinity,
-                  color: AppColors.colorPaletteB,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16.0,
-                      horizontal: 16.0,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "back to shop".toUpperCase(),
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    Get.offAllNamed(
-                      "home",
-                    );
-                  },
+            child: CustomRoundedButton(
+              radius: 8.0,
+              width: double.infinity,
+              color: AppColors.colorPaletteB,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: 16.0,
                 ),
-              ],
+                child: Center(
+                  child: Text(
+                    "back to shop".toUpperCase(),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ),
+              ),
+              onTap: () {
+                Get.offAllNamed(
+                  "home",
+                );
+              },
             ),
           ),
         ],
