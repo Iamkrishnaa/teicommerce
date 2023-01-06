@@ -36,119 +36,7 @@ class CartView extends GetView<CartController> {
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Theme(
-                          data: ThemeData(
-                            unselectedWidgetColor: AppColors.colorPaletteB,
-                          ),
-                          child: Transform.scale(
-                            scale: 1.2,
-                            child: Checkbox(
-                              value: index == 0,
-                              onChanged: (value) {},
-                              checkColor: Colors.white,
-                              activeColor: AppColors.colorPaletteB,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.blueGrey.shade200,
-                            image: DecorationImage(
-                              image: const NetworkImage(
-                                "https://images.unsplash.com/photo-1617469167379-2e33a480dd6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-                              ),
-                              fit: BoxFit.cover,
-                              //make background darker
-                              colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.2),
-                                BlendMode.darken,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 12.0,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "\$ 198.00",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                              const SizedBox(
-                                height: 4.0,
-                              ),
-                              Text(
-                                "Cotton-Terry Hoodie With exclusive atrwork"
-                                    .toUpperCase(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              const SizedBox(
-                                height: 12.0,
-                              ),
-                              Row(
-                                children: [
-                                  CustomRoundedButton(
-                                    color: AppColors.colorPaletteB,
-                                    shouldFill: true,
-                                    child: const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  Text(
-                                    "1",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                  ),
-                                  const SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  CustomRoundedButton(
-                                    color: AppColors.colorPaletteB,
-                                    shouldFill: false,
-                                    child: const Icon(
-                                      Icons.add,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return CartItemCard();
                 },
               ),
             ),
@@ -199,11 +87,14 @@ class CartView extends GetView<CartController> {
                   ),
                 ),
                 const SizedBox(
-                  height: 8.0,
+                  height: 4.0,
                 ),
-                const Divider(),
+                Divider(
+                  thickness: 2,
+                  color: Colors.blueGrey.shade50,
+                ),
                 const SizedBox(
-                  height: 8.0,
+                  height: 4.0,
                 ),
                 Row(
                   children: [
@@ -260,6 +151,119 @@ class CartView extends GetView<CartController> {
                       onTap: () {
                         Get.toNamed("checkout");
                       },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CartItemCard extends StatelessWidget {
+  const CartItemCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Theme(
+            data: ThemeData(
+              unselectedWidgetColor: AppColors.colorPaletteB,
+            ),
+            child: Transform.scale(
+              scale: 1.2,
+              child: Checkbox(
+                value: true,
+                onChanged: (value) {},
+                checkColor: Colors.white,
+                activeColor: AppColors.colorPaletteB,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.blueGrey.shade200,
+              image: DecorationImage(
+                image: const NetworkImage(
+                  "https://images.unsplash.com/photo-1617469167379-2e33a480dd6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+                ),
+                fit: BoxFit.cover,
+                //make background darker
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.2),
+                  BlendMode.darken,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 12.0,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "\$ 198.00",
+                  style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                const SizedBox(
+                  height: 4.0,
+                ),
+                Text(
+                  "Cotton-Terry Hoodie With exclusive atrwork".toUpperCase(),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Row(
+                  children: [
+                    CustomRoundedButton(
+                      color: AppColors.colorPaletteB,
+                      shouldFill: true,
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                    Text(
+                      "1",
+                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                            fontWeight: FontWeight.w900,
+                          ),
+                    ),
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                    CustomRoundedButton(
+                      color: AppColors.colorPaletteB,
+                      shouldFill: false,
+                      child: const Icon(
+                        Icons.add,
+                      ),
                     ),
                   ],
                 ),
