@@ -164,9 +164,7 @@ class CartView extends GetView<CartController> {
                 CustomRoundedButton(
                   color: Colors.grey.shade300,
                   radius: 12.0,
-                  onTap: () {
-                    Get.offAllNamed("checkout");
-                  },
+                  onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -260,7 +258,7 @@ class CartView extends GetView<CartController> {
                         ),
                       ),
                       onTap: () {
-                        Get.toNamed("cart");
+                        Get.toNamed("checkout");
                       },
                     ),
                   ],
