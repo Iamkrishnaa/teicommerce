@@ -71,11 +71,10 @@ class PaymentConfirmView extends GetView {
                       Text(
                         "Your item will arrive at your address according to the delivery date",
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.viga().copyWith(
-                          color: Theme.of(context).textTheme.caption?.color,
-                          fontSize:
-                              Theme.of(context).textTheme.subtitle1?.fontSize,
-                        ),
+                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              color: Theme.of(context).textTheme.caption?.color,
+                              fontFamily: GoogleFonts.viga().fontFamily,
+                            ),
                       ),
                     ],
                   ),
