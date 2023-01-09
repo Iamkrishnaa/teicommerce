@@ -4,8 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:teicommerce/app/consts/app_colors.dart';
+import 'package:teicommerce/app/modules/auth/controllers/auth_controller.dart';
 import 'package:teicommerce/app/widgets/buttons/custom_rounded_button.dart';
 
+import '../../../utils/helpers.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -25,7 +27,14 @@ class HomeView extends GetView<HomeController> {
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CustomRoundedButton(
-            onTap: () {},
+            onTap: () async {
+              Get.showOverlay(
+                asyncFunction: () async {
+                  await AuthController.logout();
+                },
+                loadingWidget: Helpers.getLoadingWidget(),
+              );
+            },
             color: Colors.grey.shade400,
             radius: 10,
             shouldFill: false,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:teicommerce/app/utils/helpers.dart';
 
 import '../../../consts/app_colors.dart';
 import '../../../consts/app_styles.dart';
@@ -134,12 +135,45 @@ class RegisterView extends GetView<RegisterController> {
                   ),
                 ),
                 TextFormField(
-                  controller: registerController.emailController,
+                  controller: registerController.userNameController,
                   decoration: InputDecoration(
                     border: kRoundedTextFormFieldBorder,
                     focusedBorder: kRoundedTextFormFieldBorder,
                     enabledBorder: kRoundedTextFormFieldBorder,
-                    hintText: "Email",
+                    hintText: "Username",
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 35,
+                      vertical: 20,
+                    ),
+                    // prefixIcon: const Icon(
+                    //   Icons.email,
+                    // ),
+
+                    // suffixIcon: Icon(
+                    //   Icons.check,
+                    // ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 6.0,
+                  ),
+                  child: Text(
+                    "Enter phone",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
+                TextFormField(
+                  controller: registerController.phoneController,
+                  decoration: InputDecoration(
+                    border: kRoundedTextFormFieldBorder,
+                    focusedBorder: kRoundedTextFormFieldBorder,
+                    enabledBorder: kRoundedTextFormFieldBorder,
+                    hintText: "Phone",
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 35,
                       vertical: 20,
@@ -189,19 +223,12 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 CustomRoundedButton(
                   color: Colors.grey.shade300,
-                  onTap: () {
-                    // LoginRequest loginRequest = LoginRequest(
-                    //   email: loginController.emailController.text,
-                    //   password: loginController.passwordController.text,
-                    // );
-                    // Get.showOverlay(
-                    //   asyncFunction: () async {
-                    //     await loginController.loginUser(loginRequest);
-                    //   },
-                    //   loadingWidget: const Center(
-                    //     child: CircularProgressIndicator(),
-                    //   ),
-                    // );
+                  onTap: () async {
+                    Get.showOverlay(
+                        asyncFunction: () async {
+                          await registerController.registerUser();
+                        },
+                        loadingWidget: Helpers.getLoadingWidget());
                   },
                   child: Row(
                     children: [

@@ -11,10 +11,6 @@ class AuthController extends GetxController {
   handleAuth() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString("token");
-    // await auth for 2 sec
-    await Future.delayed(
-      const Duration(seconds: 2),
-    );
 
     if (token != null) {
       Get.offAllNamed("home");

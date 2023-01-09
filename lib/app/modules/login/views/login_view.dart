@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:teicommerce/app/consts/app_colors.dart';
+import 'package:teicommerce/app/utils/helpers.dart';
 
 import '../../../consts/app_styles.dart';
 import '../../../widgets/buttons/custom_rounded_button.dart';
@@ -123,19 +124,12 @@ class LoginView extends GetView<LoginController> {
                 CustomRoundedButton(
                   color: Colors.grey.shade300,
                   onTap: () {
-                    Get.offAllNamed("home");
-                    // LoginRequest loginRequest = LoginRequest(
-                    //   email: loginController.emailController.text,
-                    //   password: loginController.passwordController.text,
-                    // );
-                    // Get.showOverlay(
-                    //   asyncFunction: () async {
-                    //     await loginController.loginUser(loginRequest);
-                    //   },
-                    //   loadingWidget: const Center(
-                    //     child: CircularProgressIndicator(),
-                    //   ),
-                    // );
+                    Get.showOverlay(
+                      asyncFunction: () async {
+                        await loginController.loginUser();
+                      },
+                      loadingWidget: Helpers.getLoadingWidget(),
+                    );
                   },
                   child: Row(
                     children: [
