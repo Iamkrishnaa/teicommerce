@@ -72,9 +72,9 @@ class ProductDetailView extends GetView {
                                           child: CustomRoundedButton(
                                             radius: 8.0,
                                             color: AppColors.colorPaletteA,
-                                            shouldFill: category.id ==
+                                            shouldFill: category.slug ==
                                                 productController
-                                                    .selectedCategory.id,
+                                                    .selectedCategory.slug,
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -89,10 +89,10 @@ class ProductDetailView extends GetView {
                                                     ?.copyWith(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: category.id ==
+                                                      color: category.slug ==
                                                               productController
                                                                   .selectedCategory
-                                                                  .id
+                                                                  .slug
                                                           ? Colors.white
                                                           : AppColors
                                                               .colorPaletteB,

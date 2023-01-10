@@ -9,9 +9,7 @@ class ProductDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    categories.value = List.generate(10, (index) {
-      return Category(id: index + 1, title: "Cat ${index + 1}");
-    });
+
     selectedCategory = categories[0];
   }
 }
