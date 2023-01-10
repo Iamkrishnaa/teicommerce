@@ -38,7 +38,7 @@ class HomeView extends GetView<HomeController> {
             color: Colors.grey.shade400,
             radius: 10,
             shouldFill: false,
-            child: const Icon(Icons.qr_code_2),
+            child: const Icon(Icons.logout_rounded),
           ),
         ),
         actions: [
