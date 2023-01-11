@@ -10,6 +10,7 @@ import 'package:teicommerce/app/services/product_api_service.dart';
 class ProductController extends GetxController {
   var categories = <Category>[].obs;
   var products = <Product>[].obs;
+  var trendingProducts = <Product>[].obs;
   // var selectedCategoryIndex = 0.obs;
   Category? selectedCategory;
 
@@ -84,6 +85,7 @@ class ProductController extends GetxController {
         throw Exception();
       }
     } catch (e) {}
+    getTrendingProduct();
     isLoading.value = false;
   }
 
@@ -104,6 +106,34 @@ class ProductController extends GetxController {
         var decodedJson = jsonDecode(response.body);
         var productsJson = jsonEncode(decodedJson["data"]);
         products.value = Product.productFromJson(productsJson);
+        update();
+      } else if (response.statusCode >= 400 && response.statusCode < 500) {
+        var decodedResponse = jsonDecode(response.body);
+        Get.showSnackbar(GetSnackBar(
+          title: "Warning",
+          message: decodedResponse["message"],
+          duration: const Duration(seconds: 2),
+        ));
+      } else {
+        throw Exception();
+      }
+    } catch (e) {}
+    isLoading.value = false;
+  }
+
+  getTrendingProduct() async {
+    isLoading.value = true;
+    try {
+      http.Response response = await ProductApiService().getTrendingProduct(
+        categoryPage,
+        categoryPageSize,
+        "id",
+      );
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        var decodedJson = jsonDecode(response.body);
+        var productsJson = jsonEncode(decodedJson["data"]);
+        trendingProducts.value = Product.productFromJson(productsJson);
         update();
       } else if (response.statusCode >= 400 && response.statusCode < 500) {
         var decodedResponse = jsonDecode(response.body);

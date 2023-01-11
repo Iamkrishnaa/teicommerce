@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:teicommerce/app/modules/payment/bindings/payment_binding.dart';
 import 'package:teicommerce/app/modules/payment/views/payment_confirm_view.dart';
 
@@ -129,10 +132,38 @@ class PaymentView extends GetView<PaymentController> {
                     ),
                   ),
                   onTap: () {
-                    Get.to(
-                      () => PaymentConfirmView(),
-                      binding: PaymentBinding(),
+                    final config = PaymentConfig(
+                      amount: 10000, // Amount should be in paisa
+                      productIdentity: 'dell-g5-g5510-2021',
+                      productName: 'Dell G5 G5510 2021',
+                      productUrl: 'https://www.khalti.com/#/bazaar',
+                      additionalData: {
+                        // Not mandatory; can be used for reporting purpose
+                        'vendor': 'Khalti Bazaar',
+                      },
+                      mobile:
+                          '9800000001', // Not mandatory; can be used to fill mobile number field
+                      mobileReadOnly:
+                          false, // Not mandatory; makes the mobile field not editable
                     );
+
+                    KhaltiScope.of(context).pay(
+                      config: config,
+                      preferences: PaymentPreference.values,
+                      onSuccess: (PaymentSuccessModel model) {
+                        log("Payment Success");
+                      },
+                      onFailure: (PaymentFailureModel model) {
+                        log("Failed");
+                      },
+                      onCancel: () {
+                        log("Client Cancelled");
+                      },
+                    );
+                    // Get.to(
+                    //   () => PaymentConfirmView(),
+                    //   binding: PaymentBinding(),
+                    // );
                   },
                 ),
               ],

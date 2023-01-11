@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:teicommerce/app/consts/app_colors.dart';
+import 'package:teicommerce/app/models/products/product.dart';
 import 'package:teicommerce/app/widgets/buttons/custom_rounded_button.dart';
 
 import '../controllers/product_detail_controller.dart';
@@ -11,6 +13,8 @@ class ProductDetailView extends GetView {
   final ProductDetailController productDetailController = Get.find();
   @override
   Widget build(BuildContext context) {
+    var arguments = Get.arguments;
+    Product product = arguments["product"];
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 246, 247, 248),
       body: Column(
@@ -21,7 +25,9 @@ class ProductDetailView extends GetView {
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      const ProductImageSlider(),
+                      ProductImageSlider(
+                        images: product.productImages,
+                      ),
                       const SizedBox(
                         height: 12.0,
                       ),
@@ -33,7 +39,8 @@ class ProductDetailView extends GetView {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "\$198.00",
+                              NumberFormat.currency(symbol: "Npr. ")
+                                  .format(product.price),
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1
@@ -45,8 +52,7 @@ class ProductDetailView extends GetView {
                               height: 12.0,
                             ),
                             Text(
-                              "Cotton-Terry Hoodie With exclusive atrwork"
-                                  .toUpperCase(),
+                              product.title.toUpperCase(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge
@@ -121,10 +127,11 @@ class ProductDetailView extends GetView {
                                 tilePadding: EdgeInsets.zero,
                                 children: [
                                   Text(
-                                    "Lorem ipsum dolor sit amet, \nconsectetur adipiscing elit, sed do eiusmod tempor \nincididunt ut labore et dolore \nmagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation \nullamco laboris nisi ut aliquip ex ea commodo consequat.\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+                                    product.description ??
+                                        "No description provided",
                                     style:
                                         Theme.of(context).textTheme.subtitle1,
-                                    textAlign: TextAlign.justify,
+                                    textAlign: TextAlign.left,
                                   ),
                                 ],
                               ),
@@ -136,13 +143,19 @@ class ProductDetailView extends GetView {
                   ),
                 ),
                 SafeArea(
-                  child: IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black.withOpacity(0.3),
+                      child: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -188,109 +201,160 @@ class ProductDetailView extends GetView {
 }
 
 class ProductImageSlider extends StatelessWidget {
-  const ProductImageSlider({
+  ProductImageSlider({
     Key? key,
+    required this.images,
   }) : super(key: key);
+  final List<ProductImage> images;
+  final ProductDetailController productDetailController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: Get.size.height * 0.5,
-      color: Colors.grey,
-      child: PageView.builder(
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const NetworkImage(
-                  "https://images.unsplash.com/photo-1617469167379-2e33a480dd6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-                ),
-                fit: BoxFit.cover,
-                //make background darker
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.2),
-                  BlendMode.darken,
-                ),
-              ),
-            ),
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 16.0,
+      decoration: const BoxDecoration(
+        color: Colors.grey,
+        image: DecorationImage(
+          image: NetworkImage(
+            "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg",
+          ),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Stack(
+        children: [
+          PageView.builder(
+            controller: productDetailController.pageController,
+            itemCount: images.length,
+            itemBuilder: (context, index) {
+              ProductImage productImage = images[index];
+              return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      productImage.image,
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.8),
-                            borderRadius: BorderRadius.circular(
-                              12.0,
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8.0,
-                            horizontal: 12.0,
-                          ),
-                          child: Row(
-                            children: [
-                              CustomRoundedButton(
-                                color: AppColors.colorPaletteA.withOpacity(0.8),
-                                radius: 6.0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Text(
-                                    "Klarna.",
+                    fit: BoxFit.cover,
+                    //make background darker
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.2),
+                      BlendMode.darken,
+                    ),
+                  ),
+                ),
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 16.0,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.8),
+                                borderRadius: BorderRadius.circular(
+                                  12.0,
+                                ),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                                horizontal: 12.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  CustomRoundedButton(
+                                    color: AppColors.colorPaletteA
+                                        .withOpacity(0.8),
+                                    radius: 6.0,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text(
+                                        "Klarna.",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Text(
+                                    "free payment of \$49.50.",
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle1
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        ?.copyWith(),
                                   ),
-                                ),
+                                  const SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  GestureDetector(
+                                    child: Text(
+                                      "Learn More",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          ?.copyWith(
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(
-                                width: 12.0,
-                              ),
-                              Text(
-                                "free payment of \$49.50.",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    ?.copyWith(),
-                              ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              GestureDetector(
-                                child: Text(
-                                  "Learn More",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      ?.copyWith(
-                                        decoration: TextDecoration.underline,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          Positioned(
+            right: 10,
+            child: SafeArea(
+              child: Column(
+                children: List.generate(
+                  images.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      productDetailController.pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.linear,
+                      );
+                    },
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      margin: const EdgeInsets.all(4.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        image: DecorationImage(
+                          image: NetworkImage(images[index].image),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
-                ],
+                ),
               ),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

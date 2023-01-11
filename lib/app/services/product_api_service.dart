@@ -57,6 +57,31 @@ class ProductApiService {
     }
   }
 
+  Future getTrendingProduct(
+    int pageNumber,
+    int pageSize,
+    String sortBy,
+  ) async {
+    try {
+      Uri url = Uri.parse(
+        "${AppApis.productApis.getTrendingProducts}?pageSize=$pageSize&sortBy=$sortBy&pageNumber=$pageNumber",
+      );
+      var response = await client.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      return response;
+    } on SocketException {
+      return Future.error('No Internet connection');
+    } on FormatException {
+      return Future.error('Bad response format');
+    } on Exception catch (error) {
+      return Future.error(error.toString());
+    }
+  }
+
   Future getAllCategories(
     int pageNumber,
     int pageSize,

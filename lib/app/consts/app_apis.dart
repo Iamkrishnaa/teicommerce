@@ -17,6 +17,7 @@ class ProductApis {
   ProductApis();
   String get getProductsByCategory => "$baseURL/api/v1/products/categories/";
   String get getAllProducts => "$baseURL/api/v1/products/all";
+  String get getTrendingProducts => "$baseURL/api/v1/products/trending";
 }
 
 class CategoryApis {
