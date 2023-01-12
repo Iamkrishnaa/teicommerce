@@ -64,7 +64,9 @@ class HomeView extends GetView<HomeController> {
                 width: 40,
                 height: 40,
                 shouldFill: false,
-                child: const Icon(Icons.shopping_bag),
+                child: const Icon(
+                  Icons.shopping_bag,
+                ),
               ),
             ),
           ),

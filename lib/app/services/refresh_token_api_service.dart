@@ -34,9 +34,9 @@ class RefreshTokenApiService {
 
         var dataFromApi = jsonDecode(body);
 
-        String accessToken = dataFromApi["data"]["access_token"];
+        String accessToken = dataFromApi["token"];
         await preferences.setString(
-          "accessToken",
+          "token",
           accessToken,
         );
       } else {
