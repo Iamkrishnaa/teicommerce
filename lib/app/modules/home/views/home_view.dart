@@ -43,15 +43,29 @@ class HomeView extends GetView<HomeController> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomRoundedButton(
-              onTap: () {},
-              color: Colors.grey.shade400,
-              radius: 10,
-              width: 40,
-              height: 40,
-              shouldFill: false,
-              child: const Icon(Icons.search),
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 16.0,
+            ),
+            child: Badge(
+              badgeContent: Text(
+                "0",
+                style: Theme.of(context).textTheme.caption?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              child: CustomRoundedButton(
+                onTap: () {
+                  Get.toNamed("cart");
+                },
+                color: Colors.grey.shade400,
+                radius: 10,
+                width: 40,
+                height: 40,
+                shouldFill: false,
+                child: const Icon(Icons.shopping_bag),
+              ),
             ),
           ),
         ],

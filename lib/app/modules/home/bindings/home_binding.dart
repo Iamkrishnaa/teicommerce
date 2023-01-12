@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:teicommerce/app/modules/cart/controllers/cart_controller.dart';
 import 'package:teicommerce/app/modules/messages/controllers/messages_controller.dart';
 import 'package:teicommerce/app/modules/orders/controllers/orders_controller.dart';
 import 'package:teicommerce/app/modules/product/controllers/product_controller.dart';
@@ -23,6 +24,9 @@ class HomeBinding extends Bindings {
     );
     Get.lazyPut<ProfileController>(
       () => ProfileController(),
+    );
+    Get.lazyPut<CartController>(
+      () => CartController(),
     );
   }
 }
